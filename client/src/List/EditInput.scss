@@ -1,0 +1,75 @@
+.EditInput {
+  position: relative;
+
+  &:hover .edit-btn {
+    display: inline;
+  }
+
+  &.gift-edit-input {
+    margin: 10px 0;
+    width: 100%;
+    position: relative;
+    
+    > div {
+      width: fit-content;
+      max-width: calc(100% - 60px);
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    a {
+      display: none;
+    }
+  }
+
+  &.person-edit-name {
+    .edit-btn {
+      transform: translateY(-55%);
+      margin-left: 10px;
+    }
+  }
+
+  &.gift-edit-name {
+    .edit-btn {
+      transform: translateY(-10%);
+      margin-left: 5px;
+    }
+  }
+
+  > input {
+    padding: .5em;
+    font-size: 1em;
+    margin-top: -.5em;
+
+    &.hidden {
+      display: none;
+    }
+  }
+
+  > div {
+    display: inline;
+    width: 100%;
+  }
+
+  .edit-btn {
+    transform: translate(10%, -18%);
+    color: lighten(gray, 15%);
+    display: none;
+
+    &:hover {
+      color: darken(gray, 15%);
+    }
+
+    svg {
+      height: 16px;
+      width: 16px;
+      fill: lighten(gray, 15%);
+
+      &:hover {
+        fill: darken(gray, 15%);
+      }
+    }
+  }
+}

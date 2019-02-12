@@ -1,0 +1,74 @@
+{
+  "lists": [
+    {
+      "id": "18h6pdbz4js213ihf",
+      "name": "Christmas 2019",
+      "createdBy": "geoffchan23@gmail.com",
+      "createdOn": "2019-02-12T17:16:39.123Z",
+      "people": [
+        {
+          "name": "Geoff",
+          "list": [
+            {
+              "id": "84599644",
+              "name": "Mooo",
+              "link": "cow.com"
+            }
+          ],
+          "selected": true,
+          "index": 0,
+          "editMode": true,
+          "editInputField": "",
+          "id": "48991933"
+        }
+      ]
+    },
+    {
+      "id": "18h6pd5c4js214yh7",
+      "name": "My List",
+      "createdBy": "francineruve@gmail.com",
+      "createdOn": "2019-02-12T17:17:46.507Z",
+      "people": []
+    },
+    {
+      "id": "18h6pd8osjs2284kd",
+      "name": "Christmas 2018",
+      "createdBy": "geoffchan23@gmail.com",
+      "createdOn": "2019-02-12T17:48:13.980Z",
+      "people": [
+        {
+          "name": "Geoff",
+          "list": [
+            {
+              "id": "49211499",
+              "name": "Milk",
+              "link": "www.moo.com/cow"
+            }
+          ],
+          "selected": false,
+          "index": 0,
+          "editMode": true,
+          "editInputField": "",
+          "id": "45551690"
+        },
+        {
+          "name": "Jordan",
+          "list": [
+            {
+              "id": "21519526",
+              "name": "Dog",
+              "link": "https://www.lilythedog.com"
+            }
+          ],
+          "selected": true,
+          "index": 1,
+          "editMode": true,
+          "editInputField": "",
+          "id": "12923922"
+        }
+      ],
+      "password": "1234"
+    }
+  ],
+  "users": []
+}
