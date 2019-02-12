@@ -2,6 +2,8 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import AutoComplete from 'react-autocomplete';
 import './Login.scss';
+// const baseApiUrl = 'http://localhost:9000';
+const baseApiUrl = 'http://192.243.102.90:9000';
 
 class Login extends React.Component {
   state = {
@@ -29,7 +31,7 @@ class Login extends React.Component {
   }
   getFilteredListsFromServer = async () => {
     if (this.state.email === '' || this.state.email === ' ') return;
-    const apiUrl = new URL('http://localhost:9000/api/lists');
+    const apiUrl = new URL(baseApiUrl + '/api/lists');
     const params = {
       email: this.state.email,
     }
@@ -50,7 +52,7 @@ class Login extends React.Component {
     }
   }
   createList = async () => {
-    const apiUrl = new URL('http://localhost:9000/api/lists');
+    const apiUrl = new URL(baseApiUrl + '/api/lists');
     const params = {
       name: this.state.listSearchText,
       createdBy: this.state.email,

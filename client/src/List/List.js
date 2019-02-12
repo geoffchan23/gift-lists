@@ -3,7 +3,7 @@ import './List.scss';
 import Person from './Person';
 import { MdAdd } from 'react-icons/md';
 import generateUID from './generateUID';
-const apiUrl = new URL('http://localhost:9000/api/lists');
+const baseApiUrl = 'http://192.243.102.90:9000';
 
 class List extends React.Component {
   state = {
@@ -17,7 +17,7 @@ class List extends React.Component {
     await this.getListInfoFromServer();
   }
   getListInfoFromServer = async () => {
-    const response = await fetch(`${apiUrl.href}/${this.props.match.params.listId}?password=${this.state.password}`);
+    const response = await fetch(`${baseApiUrl}/api/lists/${this.props.match.params.listId}?password=${this.state.password}`);
     const data = await response.json();
 
     if (data.error) {
@@ -180,7 +180,7 @@ class List extends React.Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(this.state.people),
     }
-    const response = await fetch(`${apiUrl.href}/${this.props.match.params.listId}`, params);
+    const response = await fetch(`${baseApiUrl}/api/lists/${this.props.match.params.listId}`, params);
     const data = await response.json();
     console.log('response from PATCH', data);
   }
