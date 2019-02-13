@@ -17,6 +17,7 @@ class List extends React.Component {
     await this.getListInfoFromServer();
   }
   getListInfoFromServer = async () => {
+    console.log('password', this.state.password, this.props.history.location);
     let password = this.state.password;
     if (this.props.history.location.state) password = this.props.history.location.state.password;
     const response = await fetch(`${baseApiUrl}/api/lists/${this.props.match.params.listId}?password=${password}`);
