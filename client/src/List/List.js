@@ -3,8 +3,7 @@ import './List.scss';
 import Person from './Person';
 import { MdAdd, MdArrowBack } from 'react-icons/md';
 import generateUID from './generateUID';
-// const baseApiUrl = 'http://192.243.102.90:9000';
-const baseApiUrl = 'http://localhost:9000';
+const baseApiUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:9000' : 'http://192.243.102.90:9000';
 
 class List extends React.Component {
   state = {

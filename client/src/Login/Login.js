@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import AutoComplete from 'react-autocomplete';
 import './Login.scss';
-const baseApiUrl = process.env.NODE_ENV === 'dev' ? 'http://localhost:9000' : '';
+const baseApiUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:9000' : 'http://192.243.102.90:9000';
 
 class Login extends React.Component {
   state = {
