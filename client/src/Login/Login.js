@@ -103,7 +103,6 @@ class Login extends React.Component {
           type='email'
         />
         <AutoComplete
-          open
           wrapperProps={{
             className: 'autocomplete',
           }}
