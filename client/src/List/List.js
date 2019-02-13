@@ -9,7 +9,7 @@ class List extends React.Component {
   state = {
     listInfo: {},
     people: [],
-    showEnterPassword: true,
+    showEnterPassword: false,
     password: undefined,
     errorMsg: null,
   }
