@@ -3,10 +3,10 @@ const router = express.Router()
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
 const adapter = new FileSync('db.json')
-const db = low(adapter)
 const uniqid = require('uniqid');
 
 router.post('/', async (req, res) => {
+  const db = low(adapter)
   const {
     name,
     createdBy,
@@ -30,6 +30,7 @@ router.post('/', async (req, res) => {
 })
 
 router.get('/:id', (req, res) => {
+  const db = low(adapter)
   const list = db.get('lists')
     .find({ id: req.params.id })
     .value() || {}
@@ -62,6 +63,7 @@ router.get('/:id', (req, res) => {
 })
 
 router.get('/', (req, res) => {
+  const db = low(adapter)
   const lists = db.get('lists')
     .filter({ createdBy: req.query.email })
     .value()
@@ -84,6 +86,7 @@ router.get('/', (req, res) => {
 })
 
 router.patch('/:id', (req, res) => {
+  const db = low(adapter)
   db.get('lists')
     .find({ id: req.params.id })
     .assign({ people: req.body })
