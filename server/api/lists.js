@@ -6,21 +6,23 @@ const adapter = new FileSync('db.json')
 const db = low(adapter)
 const uniqid = require('uniqid');
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const {
     name,
-    createdBy
+    createdBy,
+    password,
   } = req.query;
 
   const id = uniqid();
 
-  db.get('lists')
+  await db.get('lists')
     .push({
       id,
       name,
       createdBy,
       createdOn: new Date(),
       people: [],
+      password,
     })
     .write()
 

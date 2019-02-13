@@ -2,8 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import AutoComplete from 'react-autocomplete';
 import './Login.scss';
-// const baseApiUrl = 'http://localhost:9000';
-const baseApiUrl = 'http://192.243.102.90:9000';
+const baseApiUrl = process.env.NODE_ENV === 'dev' ? 'http://localhost:9000' : '';
 
 class Login extends React.Component {
   state = {
@@ -12,6 +11,7 @@ class Login extends React.Component {
     email: '',
     lists: [],
     showWarning: false,
+    password: '',
   }
   handleListSearchChange = (e) => {
     this.setState({
@@ -29,6 +29,11 @@ class Login extends React.Component {
       email: e.target.value,
     });
   }
+  handlePasswordChange = (e) => {
+    this.setState({
+      password: e.target.value,
+    })
+  }
   getFilteredListsFromServer = async () => {
     if (this.state.email === '' || this.state.email === ' ') return;
     const apiUrl = new URL(baseApiUrl + '/api/lists');
@@ -40,28 +45,31 @@ class Login extends React.Component {
     const lists = await response.json();
     this.setState({ lists });
   }
-  goToList = () => {
+  goToList = (e) => {
+    e.preventDefault();
     const listInfo = this.state.lists.filter(list => list.name.toLowerCase() === this.state.listSearchText.toLowerCase());
     
     if (listInfo.length) {
-      this.props.history.push(`/list/${listInfo[0].id}`);
+      this.props.history.push(`/list/${listInfo[0].id}`, { password: this.state.password });
     } else {
       this.setState({
         showWarning: true
       })
     }
   }
-  createList = async () => {
+  createList = async (e) => {
+    e.preventDefault();
     const apiUrl = new URL(baseApiUrl + '/api/lists');
     const params = {
       name: this.state.listSearchText,
       createdBy: this.state.email,
+      password: this.state.password,
     }
     Object.keys(params).forEach(key => apiUrl.searchParams.append(key, params[key]))
 
     const response = await fetch(apiUrl, { method: 'POST' });
     const data = await response.json();
-    this.props.history.push(`/list/${data.id}`);
+    this.props.history.push(`/list/${data.id}`, { password: this.state.password });
   }
   render() {
     const {
@@ -71,6 +79,7 @@ class Login extends React.Component {
       goToList,
       createList,
       getFilteredListsFromServer,
+      handlePasswordChange,
     } = this;
 
     const {
@@ -78,11 +87,13 @@ class Login extends React.Component {
       email,
       lists,
       showWarning,
+      password,
     } = this.state;
 
     return (
       <form className='Login'>
         <h1>Gift Lists</h1>
+        <p>Create and share gift lists with friends and family</p>
         <input
           placeholder='Enter email'
           value={email}
@@ -92,12 +103,12 @@ class Login extends React.Component {
           type='email'
         />
         <AutoComplete
+          open
           wrapperProps={{
             className: 'autocomplete',
           }}
           inputProps={{
             placeholder: 'List name',
-            onKeyPress: (e) => e.key === 'Enter' ? goToList() : null
           }}
           value={listSearchText}
           items={lists || []}
@@ -110,6 +121,13 @@ class Login extends React.Component {
           }
           getItemValue={(item, a) => item.name }
           shouldItemRender={(item, value) => (item.name.toLowerCase().indexOf(value.toLowerCase()) !== -1)}
+        />
+        <input
+          value={password}
+          onChange={handlePasswordChange}
+          placeholder='Enter a password (optional)'
+          type='password'
+          className='password'
         />
         {
           showWarning && <span className='warning'>This list does not exist. Click <strong>Create New List</strong> to create it.</span>

@@ -1,23 +1,25 @@
 import React from 'react';
 import './List.scss';
 import Person from './Person';
-import { MdAdd } from 'react-icons/md';
+import { MdAdd, MdArrowBack } from 'react-icons/md';
 import generateUID from './generateUID';
-const baseApiUrl = 'http://192.243.102.90:9000';
+// const baseApiUrl = 'http://192.243.102.90:9000';
+const baseApiUrl = 'http://localhost:9000';
 
 class List extends React.Component {
   state = {
     listInfo: {},
     people: [],
     showEnterPassword: true,
-    password: '',
+    password: undefined,
     errorMsg: null,
   }
   componentWillMount = async () => {
     await this.getListInfoFromServer();
   }
   getListInfoFromServer = async () => {
-    const response = await fetch(`${baseApiUrl}/api/lists/${this.props.match.params.listId}?password=${this.state.password}`);
+    const password = this.state.password || this.props.history.location.state.password;
+    const response = await fetch(`${baseApiUrl}/api/lists/${this.props.match.params.listId}?password=${password}`);
     const data = await response.json();
 
     if (data.error) {
@@ -192,6 +194,9 @@ class List extends React.Component {
       this.getListInfoFromServer();
     })
   }
+  goBack = () => {
+    this.props.history.push('/');
+  }
   render() {
     const {
       listInfo,
@@ -212,54 +217,59 @@ class List extends React.Component {
       removeGift,
       handlePasswordChange,
       submitPassword,
+      goBack,
     } = this;
 
-    console.log('render', people);
     return (
-      showEnterPassword ? (
-        <div className='enter-password'>
-          {
-            errorMsg && <span>{ errorMsg }</span>
-          }
-          <input
-            type='password'
-            value={password}
-            placeholder='Enter password'
-            onChange={handlePasswordChange}
-            onKeyPress={(e) => e.key === 'Enter' ? submitPassword() : null}
-            className={errorMsg ? 'incorrect' : ''}
-          />
-          <button onClick={submitPassword}>
-            Submit
-          </button>
-        </div>
-      ) : (
-        <div className='List'>
-          <h1>{listInfo.name}</h1>
-          <h2>Created by: {listInfo.createdBy} on {new Date(listInfo.createdOn).toLocaleString()}</h2>
-
-          <div className='people'>
-            { 
-              people && people.map((person) => (
-                <Person 
-                  key={person.id}
-                  {...person}
-                  bringPersonToFront={bringPersonToFront}
-                  removePerson={removePerson}
-                  handleToggleEditMode={handleToggleEditMode}
-                  handleEditInput={handleEditInput}
-                  addGift={addGift}
-                  handleUpdateGift={handleUpdateGift}
-                  removeGift={removeGift}
-                />
-              ))
+      <>
+        <button className='back-btn' onClick={goBack}>
+          <MdArrowBack />
+        </button>
+        {showEnterPassword ? (
+          <div className='enter-password'>
+            {
+              errorMsg && <span>{ errorMsg }</span>
             }
-            <button onClick={createPersonCard} className='create-person-card-btn'>
-              <MdAdd />
+            <input
+              type='password'
+              value={password}
+              placeholder='Enter password'
+              onChange={handlePasswordChange}
+              onKeyPress={(e) => e.key === 'Enter' ? submitPassword() : null}
+              className={errorMsg ? 'incorrect' : ''}
+            />
+            <button onClick={submitPassword}>
+              Submit
             </button>
           </div>
-        </div>
-      )
+        ) : (
+          <div className='List'>
+            <h1>{listInfo.name}</h1>
+            <h2>Created by: {listInfo.createdBy} on {new Date(listInfo.createdOn).toLocaleString()}</h2>
+
+            <div className='people'>
+              { 
+                people && people.map((person) => (
+                  <Person 
+                    key={person.id}
+                    {...person}
+                    bringPersonToFront={bringPersonToFront}
+                    removePerson={removePerson}
+                    handleToggleEditMode={handleToggleEditMode}
+                    handleEditInput={handleEditInput}
+                    addGift={addGift}
+                    handleUpdateGift={handleUpdateGift}
+                    removeGift={removeGift}
+                  />
+                ))
+              }
+              <button onClick={createPersonCard} className='create-person-card-btn'>
+                <MdAdd />
+              </button>
+            </div>
+          </div>
+        )}
+      </>
     )
   }
 }

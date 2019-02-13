@@ -1,5 +1,5 @@
 .List {
-  padding: 1em 3em;
+  padding: 2em 3em;
   height: 100vh;
   display: grid;
   box-sizing: border-box;
@@ -103,6 +103,32 @@
 
   button:disabled {
     opacity: .5;
+  }
+}
+
+.back-btn {
+  position: absolute;
+  top: 1em;
+  left: 3em;
+  background-color: white;
+  transition: .5s background-color;
+  width: 55px;
+  height: 55px;
+  border-radius: 45px;
+
+  &:hover {
+    background-color: lighten(lightgray, 10%);
+  }
+
+  svg {
+    width: 35px;
+    height: 35px;
+    fill: lightgray;
+    transition: .5s fill;
+
+    &:hover {
+      fill: darken(lightgray, 25%);
+    }
   }
 }
 
