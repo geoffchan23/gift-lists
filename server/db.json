@@ -7,6 +7,14 @@
       "createdOn": "2019-02-13T16:17:22.572Z",
       "people": [],
       "password": "1234"
+    },
+    {
+      "id": "18h6pd32wjs3fkvwq",
+      "name": "Brand new list",
+      "createdBy": "geoffchan23@gmail.com",
+      "createdOn": "2019-02-13T16:49:50.473Z",
+      "people": [],
+      "password": "1234"
     }
   ],
   "users": []

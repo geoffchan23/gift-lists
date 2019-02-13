@@ -33,6 +33,8 @@ router.get('/:id', (req, res) => {
   const list = db.get('lists')
     .find({ id: req.params.id })
     .value() || {}
+
+  console.log('GET /lists/:id~~', req.params.id, req.query.password, list.password);
   
   const translatedList = {...list}
   delete translatedList.password;
