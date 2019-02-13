@@ -1,8 +1,9 @@
 const express = require('express')
 const router = express.Router()
+const path = require('path')
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
-const adapter = new FileSync('/root/apps/gift-lists/server/db.json');
+const adapter = new FileSync(path.join(__dirname, '../db.json'))
 const db = low(adapter)
 const uniqid = require('uniqid');
 
