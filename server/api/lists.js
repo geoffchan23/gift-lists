@@ -2,10 +2,9 @@ const express = require('express')
 const router = express.Router()
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
-const adapter = new FileSync(__dirname + '/db.json')
+const adapter = new FileSync('/root/apps/gift-lists/server/db.json');
 const db = low(adapter)
 const uniqid = require('uniqid');
-console.log(__dirname);
 
 router.post('/', async (req, res) => {
   const {
@@ -35,8 +34,6 @@ router.get('/:id', (req, res) => {
     .find({ id: req.params.id })
     .value() || {}
 
-  console.log('GET /lists/:id~~', req.params.id, req.query.password, list.password);
-  
   const translatedList = {...list}
   delete translatedList.password;
 
